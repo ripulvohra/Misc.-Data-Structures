@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+int bs(int a[],int low,int high,int val)
+{
+    int mid=low+(high-low)/2;
+    int result=-1;
+    while(low<=high)
+    {
+        if(a[mid]==val){result=mid; high=mid-1;//(for lowerbound of ele) or low=mid+1(for upperbound of ele) 
+        }
+        else if(val>a[mid]) low=mid+1;
+        else high=mid-1;
+     
+     mid=low+(high-low)/2;   
+    }
+    if(result==-1) return high; //(lowerbound); and return high(for lowerbound)
+    else return result;
+    
+}
+int main() {
+    
+int n;
+cin>>n;
+int a[n];
+for(int o=0;o<n;o++)
+{
+ 
+    cin>>a[o];
+}   
+sort(a,a+n);
+for(int i=0;i<n;i++) cout<<a[i]<<" ";cout<<endl;
+int c=0;
+while(c!=5)
+{
+int x;
+cin>>x;
+cout<<bs(a,0,n-1,x)<<endl;
+c++;
+}
+}
