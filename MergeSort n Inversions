@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+using namespace std;
+int temp[1000000];
+long long s=0;
+void mergesort(int a[],int l,int r)
+{
+    if(r-l+1<2) return;
+    int mid=l+(r-l)/2;
+    
+mergesort(a,l,mid);
+mergesort(a,mid+1,r);
+
+int i=l;
+int j=mid+1;
+int k=l;
+
+while(i<=mid&&j<=r)
+{
+    if(a[i]<=a[j]) {temp[k]=a[i]; i++; k++;}
+    else
+    {
+        temp[k]=a[j]; j++; k++;
+        s=s+(mid+1-i);
+    }
+}
+while(i<=mid)
+{temp[k]=a[i]; i++; k++;}
+while(j<=r)
+{ temp[k]=a[j]; j++; k++;}
+
+for(int i=l;i<=r;i++) a[i]=temp[i];
+
+}
+int main() {
+    int t;
+    cin>>t;
+    for(int o=0;o<t;o++){
+int n;
+cin>>n;
+int a[n];
+for(int i=0;i<n;i++)
+{
+ cin>>a[i];
+    
+} 
+mergesort(a,0,n-1);
+cout<<s<<endl;
+s=0;
+}
+}
