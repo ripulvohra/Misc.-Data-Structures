@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+bool prime[1000001];
+int minprime[1000001];
+void sieve()
+{
+    for(int i=0;i<1000001;i++)
+    {
+        prime[i]=true;
+        minprime[i]=0;
+    }
+    
+    prime[0]=0;
+    prime[1]=0;
+for(int i=2;i*i<1000001;i++)
+{
+    if(prime[i]==true)
+    {
+        minprime[i]=i;
+        for(int j=2*i;j<1000001;j=j+i)
+        {
+            if(prime[j]==true) {prime[j]=false; minprime[j]=i;}
+        }
+        
+    }
+}
+    
+}
+int main() {
+    sieve();
+int t;
+cin>>t;
+for(int o=0;o<t;o++)
+{
+ int n;
+ cin>>n;
+ if(prime[n]) cout<<n<<" is prime with"<<minprime[n]<<endl;
+ else  cout<<n<<" is not prime with"<<minprime[n]<<endl;
+}
+}
