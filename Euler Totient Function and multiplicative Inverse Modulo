@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+int eultot(int n)
+{
+    
+    double res=(double)n;
+ for(int i=2;i*i<=n;i++)
+ {   
+    if(n%i==0){
+    while(n%i==0) n=n/i;
+    res=res- (double)(res/i);
+    }
+}
+if(n>1)  res=res- (double)(res/n);
+ int r=(int) res;
+ return r;
+}
+long long mexp(long long base,long long expo,long long m)
+{
+    long long res=1;
+    while(expo>0)
+    {
+        if(expo%2) res=(res*base)%m;
+        expo=expo/2;
+        base=(base*base)%m;
+        return res%m;
+    }
+    
+}
+int main() {
+    
+int t;
+cin>>t;
+for(int o=0;o<t;o++)
+{
+ int n;
+ cin>>n;
+ cout<<eultot(n)<<endl; //EulerTotientfUNCTion
+ cout<<mexp(a,eultot(n)-1,m)<<endl; //for inverse modulo of a mod m;
+    
+}   
+}
