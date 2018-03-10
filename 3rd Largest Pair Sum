@@ -5,23 +5,28 @@ int main()
     int n;
     cin>>n;
     int a[n];
-    int b[4];
+    int b[4]; // FOR STORING TOP 4
     for(int i=0;i<n;i++) cin>>a[i];
     int maxi,ind;
     int count=0;
     b[-1]=INT_MIN;
- for(int j=0;j<4;j++)
+    b[-2]=INT_MIN;
+    b[-3]=INT_MIN;
+
+ for(int j=0;j<4;j++) //LOOP FOR TOP 4
  {
     maxi=INT_MIN;
     ind=-1;
     for(int i=0;i<n;i++)
     {
-     if(a[i]>maxi&&a[i]!=b[j-1])
+     if(a[i]>maxi&&a[i]!=b[j-1]&&a[i]!=b[j-2]&&a[i]!=b[j-3])
      {
+
          maxi=a[i];
          ind=i;
      }
     }
+    //FINDING MAXIMUM ELEMENT AND ENSURING IT IS DISTINCT
      if(ind!=-1){
          count++;
     cout<<maxi<<endl;
@@ -30,7 +35,7 @@ int main()
      }
      else break;
     }
-
+ // NOW FINDING THIRD MAXIMUM SUM
 
 set<int> s;
 
