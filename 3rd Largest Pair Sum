@@ -2,11 +2,12 @@
 using namespace std;
 int main()
 {
+    map<int,int> mp;
     int n;
     cin>>n;
     int a[n];
     int b[4]; // FOR STORING TOP 4
-    for(int i=0;i<n;i++) cin>>a[i];
+    for(int i=0;i<n;i++) {cin>>a[i]; mp[a[i]]++;}
     int maxi,ind;
     int count=0;
     b[-1]=INT_MIN;
@@ -41,6 +42,7 @@ set<int> s;
 
     for(int i=0;i<count;i++)
     {
+        if(mp[b[i]]>1) s.insert(2*b[i]);
         for(int j=i+1;j<count;j++)
         {
             s.insert(b[i]+b[j]);
@@ -49,7 +51,9 @@ set<int> s;
     if(s.size()<3) cout<<"-1\n";
     else
     {
-     cout<<(*(++(++s.begin())))<<endl;
+
+
+     cout<<(*(--(----s.end())))<<endl;
     }
 
 }
