@@ -1,0 +1,57 @@
+/*
+jab tk sum positive hai,tab tak wazan hai!
+positive cheez me 0 add ho,fir b significnce h!
+positive me positive add ho to b bdiya!
+positive me negative add ho or vo positive rhe to b bdiya!(atleast kuch reference to h)
+par agar use negative bna de to koi fayda nhi h qki negative me negative aurr negative
+bnadega 
+negative me positive krne se accha hai ki positive akela lelo!
+for eg-
+sum=5
+so if num to b added=4 - COOL
+so if num to b added=-4 - STILL COOL bcz sum=1 and next number can b positively large like 10
+{
+    suppose seg is 5,-4,10
+    so although sum decreased from 5 to 1 but after 10 it will be 11.
+    so until we have pos reference sum,everything is cool!
+    if sum goes to negative,set pos ref sum=0;
+    out of all positive ref sum,largest one is ans!
+}
+IMPORTANT POINT-
+ans ko INT_MIN zrur initialise krna h!
+ans can be negative  but ref sum should be positive or zero
+*/
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	int t;
+	cin>>t;
+	while(t--)
+	{
+	    int n; cin>>n; int a[n];
+	    for(int i=0;i<n;i++) cin>>a[i];
+	    
+	    int ans=INT_MIN;
+	    int pos_sum=0;
+	    int strt=0;
+	    int end;
+	    bool flag_start_kro=1; //for telling positive sum subarray starting
+	    for(int i=0;i<n;i++)
+	    {
+	        if(flag_start_kro)
+	        {
+	            strt=i;
+	            flag_start_kro=0;
+	        }
+	        pos_sum+=a[i];
+	        if(ans<pos_sum)
+	        {ans=pos_sum; end=i;}
+	        if(pos_sum<0) {pos_sum=0;
+	        flag_start_kro=1;
+	        }
+	    }
+	    cout<<ans<<"\n";
+	    
+	}
+}
