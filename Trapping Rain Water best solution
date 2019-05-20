@@ -1,0 +1,45 @@
+Time O(n) Space O(1) --- Easy to understand as well -- divide array into 2 halves(by the maximum element).all left elements to maximum will use leftmax and all right elements
+to maximum will use right max!! NAIL IT...
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	
+	ios_base::sync_with_stdio(false); 
+	cin.tie(NULL);
+	cout.tie(NULL);
+	int t; cin>>t;
+	while(t--)
+	{
+	    int n;
+	    cin>>n;
+	    int a[n];
+	    int maxi=INT_MIN;
+	    int maxi_ind=-1;
+	    for(int i=0;i<n;i++){
+	        
+	        cin>>a[i];
+	    if(a[i]>maxi){
+	        maxi=a[i];
+	        maxi_ind=i;
+	    }
+	    
+	    }
+	    long long ans=0;
+	    int mxi=0;
+	    for(int i=0;i<maxi_ind;i++)
+	    {
+	        mxi=max(mxi,a[i]);
+	        ans+=(mxi-a[i]);
+	    }
+	    mxi=0;
+	    for(int i=(n-1);i>maxi_ind;i--)
+	    {
+	        mxi=max(mxi,a[i]);
+	        ans+=(mxi-a[i]);
+	    }
+	    cout<<ans<<"\n";
+	}
+	    
+	}
+	
