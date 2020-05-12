@@ -1,0 +1,58 @@
+#include<bits/stdc++.h>
+using namespace std;
+struct Node
+{
+    unordered_map<char,Node*> children;
+    bool isEnd;
+};
+ 
+Node* root=new Node();
+void insertt(string s)
+{
+    int l=s.length();
+    
+    Node* temp=root;
+    
+    for(int i=0;i<l;i++)
+    {
+        if(temp->children[s[i]]==NULL)
+        {
+            temp->children[s[i]]=new Node();
+            temp->isEnd=false;
+        }
+        temp=temp->children[s[i]];
+    }
+    temp->isEnd=true;
+    
+}
+bool search(string s)
+{
+    
+    int l=s.length();
+    Node* temp=root;
+    for(int i=0;i<l;i++)
+    {
+        if(temp->children[s[i]]!=NULL)
+        {
+            temp=temp->children[s[i]];
+           
+        }
+        else return 0;
+    }
+    if(temp->isEnd) return 1;
+    else return 0;
+    
+    
+}
+
+int main()
+{
+    
+    vector<string> a;
+    a.push_back("hello"); a.push_back("ripul"); a.push_back("yo"); a.push_back("helo");
+    insertt(a[0]);insertt(a[1]);insertt(a[2]);insertt(a[3]);
+    cout<<search("hello");cout<<search("helo");cout<<search("ripul");cout<<search("yo");
+    cout<<search("ello");cout<<search("y");cout<<search("hel");cout<<search("rip");cout<<search("y");
+   // cout<<"done";
+    
+}
