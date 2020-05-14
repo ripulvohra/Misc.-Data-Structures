@@ -1,0 +1,143 @@
+vector<int> Solution::solve(int A, vector<int> &B, int C, vector<int> &D, vector<int> &E) {
+}
+int trie[4000001][27];
+vector<int> used;
+int next_available=1;
+void insertTrie(string s)
+{
+    int l= s.length();
+    int cur_ptr=0; //root at 0
+    for(int i=0;i<l;i++)
+    {
+        int ch=(s[i]-'a'); //char to be inserted
+        if(trie[cur_ptr][ch]==0) // node's ch child is null
+        {
+        trie[cur_ptr][ch]=next_available; //available position, kind of new node creation
+        used.push_back(next_available);
+        next_available++; //update new node creation memory
+        }
+        cur_ptr=trie[cur_ptr][ch]; 
+        trie[cur_ptr][26]++;
+        
+    }
+    
+}
+bool isLeaf(int index)
+{
+    for(int i=0;i<26;i++)
+    {
+        if(trie[index][i]!=0) return 0;
+    }
+    return 1;
+}
+bool searchTrie(string s)
+{
+    int l= s.length();
+    int cur_ptr=0; //root at 0
+    for(int i=0;i<l;i++)
+    {
+        int ch=(s[i]-'a'); //char to be inserted
+        if(trie[cur_ptr][ch]==0) // node's ch child is null
+        {
+            return 0;
+        }
+        else cur_ptr=trie[cur_ptr][ch]; 
+        
+    }
+    if(isLeaf(cur_ptr)) return 1;
+    else return 0;
+    
+}
+int searchPrefix(string s)
+{
+    int l= s.length();
+    int cur_ptr=0; //root at 0
+    for(int i=0;i<l;i++)
+    {
+        int ch=(s[i]-'a'); //char to be inserted
+        if(trie[cur_ptr][ch]==0) // node's ch child is null
+        {
+            return 0;
+        }
+        else {cur_ptr=trie[cur_ptr][ch]; 
+        
+       
+        }
+        
+    }
+     return trie[cur_ptr][26];
+    
+    
+}
+void deleteTrie(string s) 
+{
+    if(!searchTrie(s)) return;
+    
+    
+    int l= s.length();
+    int cur_ptr=0; //root at 0
+    for(int i=0;i<l;i++)
+    {
+        int ch=(s[i]-'a'); //char to be deleted
+        int parent=cur_ptr;
+        cur_ptr=trie[cur_ptr][ch]; 
+        trie[cur_ptr][26]--;
+        if(trie[cur_ptr][26]==0)
+        {
+            trie[parent][ch]=0;
+        }
+        
+    }
+    
+}
+ 
+bool usefull(string s,int m)
+{
+    int l = s.length();
+    if(l<(m)) return 0;
+    
+    for(int i=0;i<m;i++)
+    {
+        if(s[i]!=s[l-m+i]) return 0;
+    }
+    return 1;
+}
+void clearTrie()
+{
+    used.push_back(0);
+    for(int i=0;i<used.size();i++)
+    {
+        int ind=used[i];
+        for(int j=0;j<27;j++)
+        {
+            trie[i][j]=0;
+        }
+        
+    }
+    used.clear();
+}
+ 
+vector<int> Solution::solve(vector<string> &A, vector<string> &B) {
+    
+    vector<int> ans;
+    int l=A.size();
+    int m=B[0].length();
+    for(int i=0;i<l;i++)
+    {
+        string s=A[i];
+        if(usefull(s,m)) insertTrie(s);
+    }
+    
+    l=B.size();
+    
+    for(int i=0;i<l;i++)
+    {
+        ans.push_back( searchPrefix(B[i])   );
+    }
+    
+    clearTrie();
+ 
+    
+    return ans;
+    
+}
